@@ -1,1 +1,1 @@
-# kitodo-activemq-client
+# Kitodo Active MQ Client
