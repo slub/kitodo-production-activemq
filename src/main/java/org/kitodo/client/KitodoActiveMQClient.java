@@ -22,15 +22,12 @@ public class KitodoActiveMQClient {
             MessageProducer producer = session.createProducer(destination);
             producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
-            // Create job ticket
             MapMessage message = session.createMapMessage();
             message.setString("id", args[2]);
             message.setString("message", args[3]);
 
-            // Send job ticket
             producer.send(message);
 
-            // Shutdown
             session.close();
             connection.close();
         } catch (JMSException e) {
