@@ -1,4 +1,4 @@
-# Kitodo Active MQ Client
+# Kitodo ActiveMQ Client
 
 # Usage
 
