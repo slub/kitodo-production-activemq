@@ -1,6 +1,19 @@
+/*
+ * (c) Kitodo. Key to digital objects e. V. <contact@kitodo.org>
+ *
+ * This file is part of the Kitodo project.
+ *
+ * It is licensed under GNU General Public License version 3 or later.
+ *
+ * For the full copyright and license information, please read the
+ * GPL3-License.txt file that was distributed with this source code.
+ */
+
 package org.kitodo.client;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.jms.Connection;
 import javax.jms.DeliveryMode;
@@ -10,28 +23,44 @@ import javax.jms.MapMessage;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
 
+/**
+ * The client produces specific Kitodo messages and sends them to the ActiveMQ.
+ */
 public class KitodoActiveMQClient {
 
+    private static final Logger logger = LogManager.getLogger(KitodoActiveMQClient.class);
+
+    /**
+     * When the client called this main function is automatically executed. The
+     * following arguments are required: url of Active MQ, name of destination,
+     * queue, id of task, comment that appears on the process when the task is
+     * closed
+     *
+     * @param args
+     *            The arguments to run.
+     */
     public static void main(String[] args) {
         try {
-            Connection connection = new ActiveMQConnectionFactory(args[0]).createConnection();
-
+            String url = args[0], queue = args[1], taskId = args[2], message = args[3];
+            Connection connection = new ActiveMQConnectionFactory(url).createConnection();
             connection.start();
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            Destination destination = session.createQueue(args[1]);
+            Destination destination = session.createQueue(queue);
             MessageProducer producer = session.createProducer(destination);
-            producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+            producer.setDeliveryMode(DeliveryMode.PERSISTENT);
 
-            MapMessage message = session.createMapMessage();
-            message.setString("id", args[2]);
-            message.setString("message", args[3]);
+            MapMessage mapMessage = session.createMapMessage();
+            mapMessage.setString("id", taskId);
+            mapMessage.setString("message", args[3]);
 
-            producer.send(message);
+            logger.info("Sending message to url '" + url + "' destination queue '" + queue + "' and task id " + taskId
+                    + " and message '" + message + "'");
+            producer.send(mapMessage);
 
             session.close();
             connection.close();
         } catch (JMSException e) {
-            e.printStackTrace();
+            logger.error("Exception while building or sending message to Active MQ.", e);
         }
     }
 
