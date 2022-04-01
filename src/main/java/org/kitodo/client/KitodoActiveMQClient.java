@@ -11,10 +11,6 @@
 
 package org.kitodo.client;
 
-import org.apache.activemq.ActiveMQConnectionFactory;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import javax.jms.Connection;
 import javax.jms.DeliveryMode;
 import javax.jms.Destination;
@@ -22,6 +18,10 @@ import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
+
+import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * The client produces specific Kitodo messages and sends them to the ActiveMQ.
@@ -51,16 +51,19 @@ public class KitodoActiveMQClient {
 
             MapMessage mapMessage = session.createMapMessage();
             mapMessage.setString("id", taskId);
-            mapMessage.setString("message", args[3]);
+            mapMessage.setString("message", message);
 
-            logger.info("Sending message to url '" + url + "' destination queue '" + queue + "' and task id " + taskId
+            logger.debug("Send message to url '" + url + "' destination queue '" + queue + "' and task id " + taskId
                     + " and message '" + message + "'");
+
             producer.send(mapMessage);
+
+            logger.info("Sending of message to close taskId " + taskId + " successful");
 
             session.close();
             connection.close();
         } catch (JMSException e) {
-            logger.error("Exception while building or sending message to Active MQ.", e);
+            logger.error("Exception while building or sending message.", e);
         }
     }
 

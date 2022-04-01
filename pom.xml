@@ -31,6 +31,7 @@
     <activemq.version>5.7.0</activemq.version>
     <javax.jms.version>2.0.1</javax.jms.version>
     <log4j.version>2.17.2</log4j.version>
+    <slf4j.version>1.7.36</slf4j.version>
     <maven.compiler.version>2.3.1</maven.compiler.version>
     <maven.shade.version>3.2.4</maven.shade.version>
   </properties>
@@ -56,6 +57,16 @@
       <artifactId>log4j-core</artifactId>
       <version>${log4j.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -74,28 +85,27 @@
     </pluginManagement>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-shade-plugin</artifactId>
-        <version>${maven.shade.version}</version>
-        <configuration>
-          <!-- put your configurations here -->
-        </configuration>
+        <artifactId>maven-assembly-plugin</artifactId>
         <executions>
           <execution>
             <phase>package</phase>
             <goals>
-              <goal>shade</goal>
+              <goal>single</goal>
             </goals>
-            <configuration>
-              <transformers>
-                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                  <mainClass>org.kitodo.client.KitodoActiveMQClient</mainClass>
-                </transformer>
-              </transformers>
-            </configuration>
           </execution>
         </executions>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>org.kitodo.client.KitodoActiveMQClient</mainClass>
+            </manifest>
+          </archive>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
       </plugin>
     </plugins>
+
   </build>
 </project>
