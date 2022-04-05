@@ -1,4 +1,4 @@
-# Kitodo ActiveMQ Client
+# Kitodo.Production ActiveMQ Client
 
 Client to send messages to the Kitodo ActiveMQ. Only tickets can be closed with the existing behavior of the client atm.
 
