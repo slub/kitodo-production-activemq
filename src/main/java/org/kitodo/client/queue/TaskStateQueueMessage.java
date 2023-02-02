@@ -17,7 +17,7 @@ import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.Session;
 
-public class StepStateQueueMessage extends StepQueueMessage {
+public class TaskStateQueueMessage extends TaskQueueMessage {
 
     public static final String STATE_KEY = "state";
 
@@ -27,7 +27,7 @@ public class StepStateQueueMessage extends StepQueueMessage {
 
     private String correctionTaskId;
 
-    public StepStateQueueMessage(String taskId, String message, String state) {
+    public TaskStateQueueMessage(String taskId, String message, String state) {
         super(taskId, message);
         this.state = state;
     }
@@ -43,7 +43,7 @@ public class StepStateQueueMessage extends StepQueueMessage {
 
     @Override
     public String getQueueName() {
-        return "KitodoProduction.StepState.Queue";
+        return "KitodoProduction.TaskState.Queue";
     }
 
     public void setCorrectionTaskId(String correctionTaskId) {

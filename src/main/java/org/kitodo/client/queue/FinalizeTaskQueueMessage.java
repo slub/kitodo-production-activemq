@@ -11,8 +11,8 @@
 
 package org.kitodo.client.queue;
 
-public class FinalizeStepQueueMessage extends StepQueueMessage {
-    public FinalizeStepQueueMessage(String taskId, String message) {
+public class FinalizeTaskQueueMessage extends TaskQueueMessage {
+    public FinalizeTaskQueueMessage(String taskId, String message) {
         super(taskId, message);
     }
 

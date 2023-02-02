@@ -21,9 +21,9 @@ import javax.jms.Session;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.kitodo.client.queue.FinalizeStepQueueMessage;
-import org.kitodo.client.queue.StepQueueMessage;
-import org.kitodo.client.queue.StepStateQueueMessage;
+import org.kitodo.client.queue.FinalizeTaskQueueMessage;
+import org.kitodo.client.queue.TaskQueueMessage;
+import org.kitodo.client.queue.TaskStateQueueMessage;
 
 /**
  * The client produces specific Kitodo messages and sends them to the ActiveMQ.
@@ -45,33 +45,33 @@ public class KitodoActiveMQClient {
         try {
             String url = args[0], queue = args[1], taskId = args[2], message = args[3];
 
-            StepQueueMessage stepQueue;
+            TaskQueueMessage taskQueue;
             switch (queue) {
-                case "FinalizeStepQueue":
-                    stepQueue = new FinalizeStepQueueMessage(taskId, message);
+                case "FinalizeTaskQueue":
+                    taskQueue = new FinalizeTaskQueueMessage(taskId, message);
                     logger.debug("Send message to url '" + url + "' destination queue '" + queue + "' and task id " + taskId
                             + " and message '" + message + "'");
                     break;
-                case "StepStateQueue":
+                case "TaskStateQueue":
                     String state=args[4];
-                    stepQueue = new StepStateQueueMessage(taskId, message, state);
+                    taskQueue = new TaskStateQueueMessage(taskId, message, state);
                     if(args.length == 6) {
-                        ((StepStateQueueMessage) stepQueue).setCorrectionTaskId(args[5]);
+                        ((TaskStateQueueMessage) taskQueue).setCorrectionTaskId(args[5]);
                     }
                     break;
                 default:
                     return;
             }
 
-            logger.debug("Send message '" + stepQueue + "' to url '" + url + "' destination queue '" + stepQueue.getQueueName() + "'");
+            logger.debug("Send message '" + taskQueue + "' to url '" + url + "' destination queue '" + taskQueue.getQueueName() + "'");
 
             Connection connection = new ActiveMQConnectionFactory(url).createConnection();
             connection.start();
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            Destination destination = session.createQueue(stepQueue.getQueueName());
+            Destination destination = session.createQueue(taskQueue.getQueueName());
             MessageProducer producer = session.createProducer(destination);
             producer.setDeliveryMode(DeliveryMode.PERSISTENT);
-            producer.send(stepQueue.createMessage(session));
+            producer.send(taskQueue.createMessage(session));
 
             logger.info("Sending of message for taskId='" + taskId + "' was successful");
 

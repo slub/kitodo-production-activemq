@@ -15,7 +15,7 @@ import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.Session;
 
-public abstract class StepQueueMessage {
+public abstract class TaskQueueMessage {
 
     public static final String TASK_ID_KEY = "id";
     public static final String MESSAGE_KEY = "message";
@@ -24,7 +24,7 @@ public abstract class StepQueueMessage {
 
     private String message;
 
-    StepQueueMessage(String taskId, String message) {
+    TaskQueueMessage(String taskId, String message) {
         this.taskId = taskId;
         this.message = message;
     }
