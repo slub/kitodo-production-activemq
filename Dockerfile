@@ -43,6 +43,8 @@ RUN tar xzf $ACTIVEMQ-bin.tar.gz -C /opt && \
     chown -h activemq:activemq $ACTIVEMQ_HOME && \
 	rm $ACTIVEMQ-bin.tar.gz
 
+COPY ./kitodo-activemq.xml /opt/activemq/conf/activemq.xml
+
 USER activemq
 
 WORKDIR $ACTIVEMQ_HOME
