@@ -21,7 +21,7 @@ With the use of Docker Compose, the call looks like this:
  
 ## Secured usage
 
-Currently we use the ActiveMQ without authentication and authorization. You can find more information about the secured usage on the following page "(Securing access to ActiveMQ)[https://github.com/kitodo/kitodo-production/wiki/Developer_3.x-Getting-started-ActiveMQ]" or in the comments of the kitodo_config.properties.
+Currently we use the ActiveMQ without authentication and authorization. You can find more information about the secured usage on the following page "[Securing access to ActiveMQ](https://github.com/kitodo/kitodo-production/wiki/Developer_3.x-Getting-started-ActiveMQ)" or in the comments of the kitodo_config.properties.
 
 ## Using Client
 
