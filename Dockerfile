@@ -17,7 +17,7 @@ ENV ACTIVEMQ_UI=8161
 LABEL \
     maintainer="https://slub-dresden.de" \
     org.label-schema.vcs-ref=$VCS_REF \
-    org.label-schema.vcs-url=$VCS_URL \
+    org.label-schema.vcs-url="https://github.com/slub/ocrd_manager" \
     org.label-schema.build-date=$BUILD_DATE
 
 # make apt system functional
