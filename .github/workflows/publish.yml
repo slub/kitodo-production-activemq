@@ -1,4 +1,4 @@
-name: Publish Kitodo.Production
+name: Publish Kitodo.Production ActiveMQ
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch: # run manually
 
 env:
-  REGISTRY_PATH: ghcr.io/slub/kitodo-production-activemq
+  REGISTRY_PATH: ghcr.io/markusweigelt/kitodo-production-activemq
 
 jobs:
 
