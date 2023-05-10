@@ -23,10 +23,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.kitodo.client.queue.FinalizeTaskQueueMessage;
 import org.kitodo.client.queue.TaskQueueMessage;
-import org.kitodo.client.queue.TaskStateQueueMessage;
+import org.kitodo.client.queue.TaskActionQueueMessage;
 
 /**
- * The client produces specific Kitodo messages and sends them to the ActiveMQ.
+ * The client produces specific Kitodo.Production messages and sends them to the ActiveMQ.
  */
 public class KitodoActiveMQClient {
 
@@ -49,18 +49,18 @@ public class KitodoActiveMQClient {
             switch (queue) {
                 case "FinalizeTaskQueue":
                     taskQueue = new FinalizeTaskQueueMessage(taskId, message);
-                    logger.debug("Send message to url '" + url + "' destination queue '" + queue + "' and task id " + taskId
-                            + " and message '" + message + "'");
+                    logger.debug(
+                            "Send message to url '" + url + "' destination queue '" + queue + "' and task id " + taskId + " and message '" + message + "'");
                     break;
-                case "TaskStateQueue":
-                    String state=args[4];
-                    taskQueue = new TaskStateQueueMessage(taskId, message, state);
-                    if(args.length == 6) {
-                        ((TaskStateQueueMessage) taskQueue).setCorrectionTaskId(args[5]);
+                case "TaskActionQueue":
+                    taskQueue = new TaskActionQueueMessage(taskId, message,
+                            TaskActionQueueMessage.TaskAction.valueOf(args[4]));
+                    if (args.length == 6) {
+                        ((TaskActionQueueMessage) taskQueue).setCorrectionTaskId(args[5]);
                     }
                     break;
                 default:
-                    return;
+                    throw new IllegalArgumentException("Unknown queue '" + queue + "'");
             }
 
             logger.debug("Send message '" + taskQueue + "' to url '" + url + "' destination queue '" + taskQueue.getQueueName() + "'");
@@ -80,6 +80,7 @@ public class KitodoActiveMQClient {
 
         } catch (JMSException e) {
             logger.error("Exception while building or sending message.", e);
+            throw new RuntimeException(e);
         }
     }
 

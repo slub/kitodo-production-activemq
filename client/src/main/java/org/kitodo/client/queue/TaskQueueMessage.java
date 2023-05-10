@@ -17,8 +17,8 @@ import javax.jms.Session;
 
 public abstract class TaskQueueMessage {
 
-    public static final String TASK_ID_KEY = "id";
-    public static final String MESSAGE_KEY = "message";
+    public static final String KEY_TASK_ID = "id";
+    public static final String KEY_MESSAGE = "message";
 
     private String taskId;
 
@@ -29,11 +29,10 @@ public abstract class TaskQueueMessage {
         this.message = message;
     }
 
-
     public MapMessage createMessage( Session session ) throws JMSException {
         MapMessage mapMessage = session.createMapMessage();
-        mapMessage.setString(TASK_ID_KEY, taskId);
-        mapMessage.setString(MESSAGE_KEY, message);
+        mapMessage.setString(KEY_TASK_ID, taskId);
+        mapMessage.setString(KEY_MESSAGE, message);
         return mapMessage;
     }
 
@@ -41,6 +40,6 @@ public abstract class TaskQueueMessage {
 
     @Override
     public String toString() {
-        return TASK_ID_KEY + "='" + taskId + "'," + MESSAGE_KEY + "='" + message + "'";
+        return KEY_TASK_ID + "='" + taskId + "'," + KEY_MESSAGE + "='" + message + "'";
     }
 }
