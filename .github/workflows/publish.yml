@@ -6,7 +6,7 @@ on:
   workflow_dispatch: # run manually
 
 env:
-  REGISTRY_PATH: ghcr.io/slub/kitodo-production-activemq
+  IMAGE_NAME: ghcr.io/${{ github.repository }}
 
 jobs:
 
@@ -39,10 +39,9 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ env.REGISTRY_PATH }}:latest
+          tags: ${{ env.IMAGE_NAME }}:latest
           build-args: |
             BUILD_DATE=${{ env.build_date }}
             VCS_REF=${{ env.vcs_ref }}
-            VCS_URL=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/
           cache-from: type=gha
           cache-to: type=gha,mode=max
