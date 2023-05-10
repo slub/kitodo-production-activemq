@@ -2,7 +2,8 @@ name: Publish Kitodo.Production ActiveMQ
 
 on:
   push:
-    branches: [ "main" ]
+    branches: 
+      - main
   workflow_dispatch: # run manually
 
 env:
