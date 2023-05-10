@@ -1,6 +1,6 @@
 FROM openjdk:11-jre-slim-bullseye
 
-ARG ACTIVEMQ_VERSION=5.17.4
+ARG ACTIVEMQ_VERSION=5.18.1
 ARG ACTIVEMQ=apache-activemq-$ACTIVEMQ_VERSION
 
 ENV ACTIVEMQ_HOME=/opt/activemq
@@ -13,9 +13,18 @@ ENV ACTIVEMQ_UI=8161
 
 LABEL \
     maintainer="https://slub-dresden.de" \
+    org.label-schema.vendor="Saxon State and University Library Dresden" \
+    org.label-schema.name="Kitodo.Production ActiveMQ" \
     org.label-schema.vcs-ref=$VCS_REF \
     org.label-schema.vcs-url="https://github.com/slub/kitodo-production-activemq" \
     org.label-schema.build-date=$BUILD_DATE
+    org.opencontainers.image.vendor="Saxon State and University Library Dresden" \
+    org.opencontainers.image.title="Kitodo.Production ActiveMQ" \
+    org.opencontainers.image.description="Kitodo.Production ActiveMQ Docker image and Java client"
+    org.opencontainers.image.source="https://github.com/slub/kitodo-production-activemq"
+    org.opencontainers.image.documentation="https://github.com/slub/kitodo-production-activemq/blob/${VCS_REF}/README.md"
+    org.opencontainers.image.revision=$VCS_REF
+    org.opencontainers.image.created=$BUILD_DATE
 
 RUN apt-get update && \
     apt-get install -y apt-utils curl && \
