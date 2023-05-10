@@ -2,14 +2,8 @@ FROM openjdk:11-jre-slim-bullseye
 
 ARG ACTIVEMQ_VERSION=5.18.1
 ARG ACTIVEMQ=apache-activemq-$ACTIVEMQ_VERSION
-
-ENV ACTIVEMQ_HOME=/opt/activemq
-ENV ACTIVEMQ_TCP=61616
-ENV ACTIVEMQ_AMQP=5672
-ENV ACTIVEMQ_STOMP=61613
-ENV ACTIVEMQ_MQTT=1883
-ENV ACTIVEMQ_WS=61614
-ENV ACTIVEMQ_UI=8161
+ARG VCS_REF
+ARG BUILD_DATE
 
 LABEL \
     maintainer="https://slub-dresden.de" \
@@ -25,6 +19,14 @@ LABEL \
     org.opencontainers.image.documentation="https://github.com/slub/kitodo-production-activemq/blob/${VCS_REF}/README.md"
     org.opencontainers.image.revision=$VCS_REF
     org.opencontainers.image.created=$BUILD_DATE
+
+ENV ACTIVEMQ_HOME=/opt/activemq
+ENV ACTIVEMQ_TCP=61616
+ENV ACTIVEMQ_AMQP=5672
+ENV ACTIVEMQ_STOMP=61613
+ENV ACTIVEMQ_MQTT=1883
+ENV ACTIVEMQ_WS=61614
+ENV ACTIVEMQ_UI=8161
 
 RUN apt-get update && \
     apt-get install -y apt-utils curl && \
