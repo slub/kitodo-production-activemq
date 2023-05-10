@@ -11,13 +11,13 @@ LABEL \
     org.label-schema.name="Kitodo.Production ActiveMQ" \
     org.label-schema.vcs-ref=$VCS_REF \
     org.label-schema.vcs-url="https://github.com/slub/kitodo-production-activemq" \
-    org.label-schema.build-date=$BUILD_DATE
+    org.label-schema.build-date=$BUILD_DATE \
     org.opencontainers.image.vendor="Saxon State and University Library Dresden" \
     org.opencontainers.image.title="Kitodo.Production ActiveMQ" \
-    org.opencontainers.image.description="Kitodo.Production ActiveMQ Docker image and Java client"
-    org.opencontainers.image.source="https://github.com/slub/kitodo-production-activemq"
-    org.opencontainers.image.documentation="https://github.com/slub/kitodo-production-activemq/blob/${VCS_REF}/README.md"
-    org.opencontainers.image.revision=$VCS_REF
+    org.opencontainers.image.description="Kitodo.Production ActiveMQ Docker image and Java client" \
+    org.opencontainers.image.source="https://github.com/slub/kitodo-production-activemq" \
+    org.opencontainers.image.documentation="https://github.com/slub/kitodo-production-activemq/blob/${VCS_REF}/README.md" \
+    org.opencontainers.image.revision=$VCS_REF \
     org.opencontainers.image.created=$BUILD_DATE
 
 ENV ACTIVEMQ_HOME=/opt/activemq
