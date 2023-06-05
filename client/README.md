@@ -4,8 +4,14 @@ Client to send messages to the Kitodo ActiveMQ. Only tickets can be closed with 
 
 ## Usage
 
+### FinalizeTaskQueue
+
 ```java
-java -jar kitodo-activemq-client-X.jar tcp://localhost:61616?closeAsync=false "KitodoProduction.FinalizeStep.Queue" TaskID Message
+java -jar kitodo-activemq-client-X.jar tcp://localhost:61616?closeAsync=false "FinalizeTaskQueue" TaskID Message
 ```
 
-Client is not yet ready for production use.
+### TaskActionQueue
+
+```java
+java -jar kitodo-activemq-client-X.jar tcp://localhost:61616?closeAsync=false "TaskActionQueue" TaskID Message TaskAction (CorrectionTaskID)
+```
