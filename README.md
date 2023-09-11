@@ -30,3 +30,9 @@ There is a [client](https://github.com/slub/kitodo-production-activemq/blob/main
 ## Further informations
 
 * https://github.com/kitodo/kitodo-production/wiki/Developer_3.x-Active-MQ
+
+## Maintainer
+
+If you have any questions or encounter any problems, please do not hesitate to contact me.
+
+- [Markus Weigelt](https://github.com/markusweigelt)
