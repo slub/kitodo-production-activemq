@@ -2,7 +2,7 @@ FROM openjdk:11-jre-slim-bullseye
 
 MAINTAINER markus.weigelt@slub-dresden.de
 
-ARG ACTIVEMQ_VERSION=5.18.1
+ARG ACTIVEMQ_VERSION=5.18.3
 ARG ACTIVEMQ=apache-activemq-$ACTIVEMQ_VERSION
 ARG VCS_REF
 ARG BUILD_DATE
